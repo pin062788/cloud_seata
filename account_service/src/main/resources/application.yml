@@ -1,0 +1,23 @@
+#端口号
+server:
+  port: 8081
+#Eureka实例名，集群中根据这里相互识别
+spring:
+  application:
+    name: account-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1771291wei@
+    url: jdbc:mysql://106.12.27.130:3306/seata?characterEncoding=utf-8&useSSL=false
+    jpa:
+      database: mysql
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+eureka:
+  #客户端
+  client:
+    #注册中心地址
+    service-url:
+      defaultZone: http://localhost:8888/eureka/

@@ -11,5 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "storage-service")
 public interface StorageClient {
     @GetMapping("/storage/update")
-    String update(@RequestParam("commodityCode") String commodityCode, @RequestParam("count") Integer count);
+    String update(@RequestParam("commodityCode") String commodityCode
+            , @RequestParam("count") Integer count, @RequestParam("onlyValue") String onlyValue);
 }

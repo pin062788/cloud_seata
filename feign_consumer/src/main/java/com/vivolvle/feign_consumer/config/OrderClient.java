@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "order-service")
 public interface OrderClient {
     @GetMapping("/order/create")
-    String create(@RequestParam("userId") String userId
-            , @RequestParam("commodityCode") String commodityCode, @RequestParam("count") Integer count);
+    String create(@RequestParam("userId") String userId, @RequestParam("commodityCode") String commodityCode
+            , @RequestParam("count") Integer count, @RequestParam("onlyValue") String onlyValue);
 }

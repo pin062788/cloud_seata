@@ -3,6 +3,7 @@ package com.vivolvle.order_service.controller;
 import com.vivolvle.order_service.config.AccountClient;
 import com.vivolvle.order_service.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,12 +20,18 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private AccountClient accountClient;
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @GetMapping("/create")
-    public String create(@RequestParam("userId") String userId
-            ,@RequestParam("commodityCode") String commodityCode,@RequestParam("count") Integer count){
-        orderService.insert(userId,commodityCode,count,20);
-        accountClient.update(userId,20);
+    public String create(@RequestParam("userId") String userId, @RequestParam("commodityCode") String commodityCode
+            , @RequestParam("count") Integer count, @RequestParam("onlyValue") String onlyValue) {
+        Object result = redisTemplate.opsForHash().get(onlyValue, "order");
+        if (null == result) {
+            orderService.insert(userId, commodityCode, count, 20);
+            redisTemplate.opsForHash().put(onlyValue, "order", "success");
+        }
+        accountClient.update(userId, 20, onlyValue);
         return "success";
     }
 }

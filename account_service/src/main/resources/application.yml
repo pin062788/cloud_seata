@@ -15,6 +15,12 @@ spring:
       show-sql: true
       hibernate:
         ddl-auto: update
+  #redis连接参数
+  redis:
+    database: 0
+    host: 106.12.27.130
+    port: 6379
+    password: 1771291wei@
 eureka:
   #客户端
   client:

@@ -11,5 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "account-service")
 public interface AccountClient {
     @PostMapping("/account/update")
-    String update(@RequestParam("userId") String userId, @RequestParam("money") Integer money);
+    String update(@RequestParam("userId") String userId
+            , @RequestParam("money") Integer money, @RequestParam("onlyValue") String onlyValue);
 }
